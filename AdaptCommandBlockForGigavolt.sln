@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34212.112
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaptCommandBlockForGigavolt", "AdaptCommandBlockForGigavolt\AdaptCommandBlockForGigavolt.csproj", "{9D52D2EA-E9F8-4F9A-B68F-B0B542C166DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D52D2EA-E9F8-4F9A-B68F-B0B542C166DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D52D2EA-E9F8-4F9A-B68F-B0B542C166DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D52D2EA-E9F8-4F9A-B68F-B0B542C166DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D52D2EA-E9F8-4F9A-B68F-B0B542C166DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1919EC76-7231-443A-9F36-E556F08AE2CD}
+	EndGlobalSection
+EndGlobal
