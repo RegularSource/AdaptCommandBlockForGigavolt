@@ -72,12 +72,12 @@ namespace Game {
                     int clockSignal = signals[4];
                     if (IsVariableSyncMode())
                     {
-                        if (clockSignal >= 8 && clockAllowed)
+                        if ((clockSignal >= 8 || clockSignal < 0) && clockAllowed)
                         {
                             clockAllowed = false;
                             return VariableSubmit(signals);
                         }
-                        if (clockSignal < 8) clockAllowed = true;
+                        if (clockSignal < 8 && clockSignal >= 0) clockAllowed = true;
                     }
                     else
                     {
@@ -133,10 +133,10 @@ namespace Game {
             {
                 if (connection.ConnectorType != GVElectricConnectorType.Output && connection.NeighborConnectorType != 0)
                 {
-                    ElectricConnectorDirection? connectorDirection = SubsystemElectricity.GetConnectorDirection(base.CellFaces[0].Face, 0, connection.ConnectorFace);
+                    GVElectricConnectorDirection? connectorDirection = SubsystemGVElectricity.GetConnectorDirection(base.CellFaces[0].Face, 0, connection.ConnectorFace);
                     if (connectorDirection.HasValue)
                     {
-                        if (connectorDirection == ElectricConnectorDirection.Bottom) clockConnection = true;
+                        if (connectorDirection == GVElectricConnectorDirection.Bottom) clockConnection = true;
                     }
                 }
             }
