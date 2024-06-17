@@ -15,16 +15,16 @@ namespace Game {
 
         public SubmitResult m_submitResult;
 
-        public CommandGVElectricElement(SubsystemGVElectricity subsystemElectricity, Point3 position)
-            : base(subsystemElectricity, new List<CellFace>
+        public CommandGVElectricElement(SubsystemGVElectricity subsystemElectricity, Point3 position, uint subterrainId)
+            : base(subsystemElectricity, new List<GVCellFace>
             {
-                    new CellFace(position.X, position.Y, position.Z, 0),
-                    new CellFace(position.X, position.Y, position.Z, 1),
-                    new CellFace(position.X, position.Y, position.Z, 2),
-                    new CellFace(position.X, position.Y, position.Z, 3),
-                    new CellFace(position.X, position.Y, position.Z, 4),
-                    new CellFace(position.X, position.Y, position.Z, 5)
-            })
+                    new(position.X, position.Y, position.Z, 0),
+                    new (position.X, position.Y, position.Z, 1),
+                    new (position.X, position.Y, position.Z, 2),
+                    new (position.X, position.Y, position.Z, 3),
+                    new (position.X, position.Y, position.Z, 4),
+                    new (position.X, position.Y, position.Z, 5)
+            },subterrainId)
         {
             m_commandData = subsystemElectricity.Project.FindSubsystem<SubsystemCommandBlockBehavior>(true).GetCommandData(position);
             m_subsystemCommand = subsystemElectricity.Project.FindSubsystem<SubsystemCommand>(true);
@@ -41,18 +41,18 @@ namespace Game {
             try
             {
                 if (m_commandData == null) return false;
-                if (m_commandData.Mode == WorkingMode.Default)
+                if (m_commandData.Mode == WorkingMode.执行)
                 {
-                    if (base.CalculateHighInputsCount() > 0)
+                    if (CalculateHighInputsCount() > 0)
                     {
                         m_submitResult = m_subsystemCommand.Submit(m_commandData.Name, m_commandData, false);
                         m_subsystemCommand.ShowSubmitTips(string.Empty, true, m_submitResult, m_commandData);
                         return m_submitResult == SubmitResult.Success;
                     }
                 }
-                else if (m_commandData.Mode == WorkingMode.Condition)
+                else if (m_commandData.Mode == WorkingMode.条件)
                 {
-                    base.SubsystemGVElectricity.QueueGVElectricElementForSimulation(this, base.SubsystemGVElectricity.CircuitStep + 1);
+                    SubsystemGVElectricity.QueueGVElectricElementForSimulation(this, SubsystemGVElectricity.CircuitStep + 1);
                     if (m_submitResult != SubmitResult.Success && m_submitResult != SubmitResult.Fail)
                     {
                         return false;
@@ -65,7 +65,7 @@ namespace Game {
                     m_voltage = (m_submitResult == SubmitResult.Success) ? uint.MaxValue : 0;
                     return true;
                 }
-                else if (m_commandData.Mode == WorkingMode.Variable)
+                else if (m_commandData.Mode == WorkingMode.变量)
                 {
                     m_voltage = 0u;
                     int[] signals = GetSignals();
@@ -77,7 +77,7 @@ namespace Game {
                             clockAllowed = false;
                             return VariableSubmit(signals);
                         }
-                        if (clockSignal < 8 && clockSignal >= 0) clockAllowed = true;
+                        if (clockSignal is < 8 and >= 0) clockAllowed = true;
                     }
                     else
                     {
@@ -115,7 +115,7 @@ namespace Game {
         public int[] GetSignals()
         {
             int[] signals = new int[6];
-            foreach (GVElectricConnection connection in base.Connections)
+            foreach (GVElectricConnection connection in Connections)
             {
                 if (connection.ConnectorType != GVElectricConnectorType.Output && connection.NeighborConnectorType != 0)
                 {
@@ -129,20 +129,19 @@ namespace Game {
         public bool IsVariableSyncMode()
         {
             bool clockConnection = false;
-            foreach (GVElectricConnection connection in base.Connections)
+            foreach (GVElectricConnection connection in Connections)
             {
                 if (connection.ConnectorType != GVElectricConnectorType.Output && connection.NeighborConnectorType != 0)
                 {
-                    GVElectricConnectorDirection? connectorDirection = SubsystemGVElectricity.GetConnectorDirection(base.CellFaces[0].Face, 0, connection.ConnectorFace);
-                    if (connectorDirection.HasValue)
-                    {
-                        if (connectorDirection == GVElectricConnectorDirection.Bottom) clockConnection = true;
+                    GVElectricConnectorDirection? connectorDirection = SubsystemGVElectricity.GetConnectorDirection(CellFaces[0].Face, 0, connection.ConnectorFace);
+                    if (connectorDirection is GVElectricConnectorDirection.Bottom) {
+                        clockConnection = true;
                     }
                 }
             }
             return clockConnection;
         }
-        static public int uint2int(uint value)
+        public static int uint2int(uint value)
         {
             return value >> 31 == 1u ? -(int)(value^0x80000000u) : (int)value;
         }

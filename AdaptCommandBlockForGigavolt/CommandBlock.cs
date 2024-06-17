@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace AdaptCommandBlockForGigavolt
 {
-    public class CommandBlock : Game.CommandBlock, IGVElectricElementBlock
+    public class 命令方块 : Game.命令方块, IGVElectricElementBlock
     {
         public const int Index = 333;
-        public GVElectricElement CreateGVElectricElement(SubsystemGVElectricity subsystemGVElectric, int value, int x, int y, int z)
+        public GVElectricElement CreateGVElectricElement(SubsystemGVElectricity subsystemGVElectric, int value, int x, int y, int z, uint subterrainId)
         {
-            return new CommandGVElectricElement(subsystemGVElectric, new Point3(x, y, z));
+            return new CommandGVElectricElement(subsystemGVElectric, new Point3(x, y, z), subterrainId);
         }
 
-        public GVElectricConnectorType? GetGVConnectorType(SubsystemTerrain terrain, int value, int face, int connectorFace, int x, int y, int z)
+        public GVElectricConnectorType? GetGVConnectorType(SubsystemGVSubterrain system, int value, int face, int connectorFace, int x, int y, int z, uint subterrainId)
         {
             WorkingMode workingMode = GetWorkingMode(value);
-            if (workingMode == WorkingMode.Condition)
+            if (workingMode == WorkingMode.条件)
             {
                 return GVElectricConnectorType.Output;
             }
-            else if (workingMode == WorkingMode.Variable && connectorFace == 4)
+            else if (workingMode == WorkingMode.变量 && connectorFace == 4)
             {
                 return GVElectricConnectorType.Output;
             }
