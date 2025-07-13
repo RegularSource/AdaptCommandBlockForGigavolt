@@ -1,11 +1,11 @@
 {
   "Name": "让命令方块适配十亿伏特 AdaptCommandBlockForGigavolt",
-  "Version": "1.0.2",
-  "ApiVersion": "1.70",
+  "Version": "1.1.1",
+  "ApiVersion": "1.8.1.2",
   "Description": "如名，2进制最高位为1时作为负数输入（非补码）",
   "ScVersion": "2.3",
   "Link": "https://github.com/XiaofengdiZhu/AdaptCommandBlockForGigavolt",
   "Author": "销锋镝铸",
   "PackageName": "xfdz.AdaptCommandBlockForGigavolt",
-  "Dependencies": [ "xfdz.Gigavolt:1.0", "zh.command:3.1" ]
+  "Dependencies": [ "xfdz.Gigavolt:2.1", "zh.command:4.1.1" ]
 }

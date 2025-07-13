@@ -41,7 +41,7 @@ namespace Game {
             try
             {
                 if (m_commandData == null) return false;
-                if (m_commandData.Mode == WorkingMode.执行)
+                if (m_commandData.Mode == WorkingMode.Default)
                 {
                     if (CalculateHighInputsCount() > 0)
                     {
@@ -50,7 +50,7 @@ namespace Game {
                         return m_submitResult == SubmitResult.Success;
                     }
                 }
-                else if (m_commandData.Mode == WorkingMode.条件)
+                else if (m_commandData.Mode == WorkingMode.Condition)
                 {
                     SubsystemGVElectricity.QueueGVElectricElementForSimulation(this, SubsystemGVElectricity.CircuitStep + 1);
                     if (m_submitResult != SubmitResult.Success && m_submitResult != SubmitResult.Fail)
@@ -65,7 +65,7 @@ namespace Game {
                     m_voltage = (m_submitResult == SubmitResult.Success) ? uint.MaxValue : 0;
                     return true;
                 }
-                else if (m_commandData.Mode == WorkingMode.变量)
+                else if (m_commandData.Mode == WorkingMode.Variable)
                 {
                     m_voltage = 0u;
                     int[] signals = GetSignals();

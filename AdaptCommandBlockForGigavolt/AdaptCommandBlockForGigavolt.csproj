@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>AdaptCommandBlockForGigavolt</AssemblyName>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -33,37 +33,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="#命令方块">
-      <HintPath>Reference\#命令方块.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Engine">
-      <HintPath>Reference\Engine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EntitySystem">
-      <HintPath>Reference\EntitySystem.dll</HintPath>
+    <Compile Include="CommandBlock.cs" />
+    <Compile Include="CommandGVElectricElement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="modinfo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SurvivalcraftAPI.Survivalcraft" Version="1.8.1.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CommandBlock">
+      <HintPath>Reference\CommandBlock.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Gigavolt">
       <HintPath>Reference\Gigavolt.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Survivalcraft">
-      <HintPath>Reference\Survivalcraft.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandBlock.cs" />
-    <Compile Include="CommandGVElectricElement.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\AdaptCommandBlockForGigavolt.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="modinfo.json">
+    <None Update="AdaptCommandBlockForGigavolt.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
